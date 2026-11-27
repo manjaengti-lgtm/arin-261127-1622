@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "product": "Arin",
+  "release": "1.19.0",
+  "principles": [
+    "Never report an unverified tool as installed or working",
+    "Prefer offline static analysis before network operations",
+    "Require explicit owner or authorised-scope confirmation for network assessment",
+    "Separate confirmed evidence from heuristic matches and inferred risk",
+    "Do not execute archive contents during inspection",
+    "AI tool calls use a narrow structured adapter protocol, never arbitrary shell commands",
+    "Every security adapter invocation requires explicit user approval",
+    "Local file analysis is confined to Arin private files/cache and bounded input sizes",
+    "Network checks are disabled in offline mode and require explicit authorised=true"
+  ],
+  "adapters": [
+    {
+      "id": "apk-static",
+      "name": "APK static analysis",
+      "mode": "offline",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "ApkAudit",
+      "status": "existing; runtime must be tested"
+    },
+    {
+      "id": "source-sbom",
+      "name": "Source and partial SBOM inventory",
+      "mode": "offline",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "SourceAudit",
+      "status": "implemented; supported manifest formats only"
+    },
+    {
+      "id": "secret-scan",
+      "name": "Redacted secret-pattern scan",
+      "mode": "offline",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "SourceAudit",
+      "status": "implemented; heuristic"
+    },
+    {
+      "id": "web-passive",
+      "name": "Passive HTTP security assessment",
+      "mode": "network",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "WebAudit",
+      "status": "existing; requires authorisation"
+    },
+    {
+      "id": "network-info",
+      "name": "Local network configuration",
+      "mode": "offline",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "NetAudit",
+      "status": "existing; Android permission/platform limits apply"
+    },
+    {
+      "id": "host-check",
+      "name": "Ordinary TCP service check",
+      "mode": "network",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "NetAudit",
+      "status": "existing; authorised targets only"
+    },
+    {
+      "id": "evidence",
+      "name": "Evidence hashing and custody",
+      "mode": "offline",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "Forensics",
+      "status": "existing; legal admissibility not established"
+    },
+    {
+      "id": "vuln-intel",
+      "name": "NVD and CISA KEV correlation",
+      "mode": "network",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "VulnIntel",
+      "status": "existing; version matches are leads only"
+    },
+    {
+      "id": "linux-tools",
+      "name": "Defensive Linux tool adapters",
+      "mode": "linux",
+      "environment": [
+        "Ubuntu/PRoot",
+        "Remote Linux"
+      ],
+      "implementation": "Linux + toolkit scripts",
+      "status": "installation and runtime must be verified per tool"
+    },
+    {
+      "id": "capability_report",
+      "name": "Live capability report",
+      "mode": "offline",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "SecurityToolBridge",
+      "status": "implemented; reports current registry and environment markers"
+    },
+    {
+      "id": "network_info",
+      "name": "Device network information",
+      "mode": "offline",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "NetAudit.networkInfo",
+      "status": "implemented; Android permissions/platform restrictions apply"
+    },
+    {
+      "id": "evidence_verify",
+      "name": "Evidence integrity verification",
+      "mode": "offline",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "Forensics.verifyAll",
+      "status": "implemented; verifies evidence already collected by Arin"
+    },
+    {
+      "id": "apk_static",
+      "name": "APK static security analysis",
+      "mode": "offline",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "ApkAudit",
+      "status": "implemented; input must be imported into Arin private storage"
+    },
+    {
+      "id": "web_passive",
+      "name": "Passive web security assessment",
+      "mode": "network",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "WebAudit",
+      "status": "implemented; user approval, explicit authorisation and online mode required"
+    },
+    {
+      "id": "tool_smoke_test",
+      "name": "Allowlisted tool runtime smoke test",
+      "mode": "linux",
+      "environment": [
+        "Ubuntu/PRoot",
+        "Termux"
+      ],
+      "implementation": "Shell + fixed command allowlist",
+      "status": "implemented for listed commands; successful test required per tool"
+    },
+    {
+      "id": "vuln_lookup",
+      "name": "NVD and CISA KEV product/version lookup",
+      "mode": "network",
+      "environment": [
+        "Android"
+      ],
+      "implementation": "VulnIntel.lookup",
+      "status": "implemented; requires online mode; version matches are leads and require vendor validation"
+    },
+    {
+      "id": "tool_catalogue",
+      "name": "Tool catalogue report",
+      "mode": "offline",
+      "environment": [
+        "Android",
+        "Termux",
+        "Ubuntu/PRoot",
+        "Remote authorised lab"
+      ],
+      "implementation": "ToolPipeline",
+      "status": "implemented; actual tool success must be established by runtime output"
+    },
+    {
+      "id": "tool_status",
+      "name": "Per-tool runtime smoke verification",
+      "mode": "linux",
+      "environment": [
+        "Android",
+        "Termux",
+        "Ubuntu/PRoot",
+        "Remote authorised lab"
+      ],
+      "implementation": "ToolPipeline",
+      "status": "implemented; actual tool success must be established by runtime output"
+    },
+    {
+      "id": "tool_install",
+      "name": "Allowlisted tool installation",
+      "mode": "linux",
+      "environment": [
+        "Android",
+        "Termux",
+        "Ubuntu/PRoot",
+        "Remote authorised lab"
+      ],
+      "implementation": "ToolPipeline + AgentTools",
+      "status": "implemented; actual tool success must be established by runtime output"
+    },
+    {
+      "id": "tool_run",
+      "name": "Allowlisted defensive tool execution",
+      "mode": "offline/network",
+      "environment": [
+        "Android",
+        "Termux",
+        "Ubuntu/PRoot",
+        "Remote authorised lab"
+      ],
+      "implementation": "ToolPipeline",
+      "status": "implemented; actual tool success must be established by runtime output",
+      "tools": [
+        "jadx",
+        "apktool",
+        "androguard",
+        "nmap",
+        "tshark",
+        "wireshark-cli",
+        "yara",
+        "clamav",
+        "binwalk",
+        "sleuthkit",
+        "sqlite3",
+        "semgrep",
+        "bandit",
+        "shellcheck",
+        "trivy",
+        "testssl",
+        "owasp-zap",
+        "kismet"
+      ],
+      "limitations": "OWASP ZAP is remote/desktop Linux only in this build; Kismet requires compatible hardware. Some manual installers are not automated."
+    }
+  ]
+}

@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "addon_version": "1.19.0",
+  "description": "Arin's supplemental security-tool catalogue. Presence and platform compatibility must be verified at runtime.",
+  "execution_environments": [
+    "android_app",
+    "termux",
+    "ubuntu_proot",
+    "remote_authorised_lab"
+  ],
+  "tools": [
+    {
+      "id": "jadx",
+      "name": "JADX",
+      "category": "apk_reverse_engineering",
+      "purpose": "Decompile DEX bytecode for source inspection",
+      "install": "existing_apk_toolkit",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "existing_setup_script; verify_runtime",
+      "notes": "Use on APKs you are authorised to inspect.",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "apktool",
+      "name": "Apktool",
+      "category": "apk_reverse_engineering",
+      "purpose": "Decode and rebuild APK resources",
+      "install": "existing_apk_toolkit",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "existing_setup_script; verify_runtime",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "androguard",
+      "name": "Androguard",
+      "category": "apk_analysis",
+      "purpose": "Static APK/DEX metadata and code analysis",
+      "install": "existing_apk_toolkit_or_python_environment",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "existing_setup_script; verify_runtime",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "nmap",
+      "name": "Nmap",
+      "category": "network_diagnostics",
+      "purpose": "Scoped host and service discovery",
+      "install": "apt:nmap",
+      "platforms": [
+        "termux_if_available",
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "optional_install",
+      "scope": "Only scan assets explicitly authorised for assessment.",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "tshark",
+      "name": "TShark",
+      "category": "packet_analysis",
+      "purpose": "Offline packet-capture inspection and protocol analysis",
+      "install": "apt:tshark",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "optional_install",
+      "notes": "Live capture may be unavailable without privileges/capabilities; offline PCAP analysis is preferred.",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "wireshark-cli",
+      "name": "Wireshark CLI tools",
+      "category": "packet_analysis",
+      "purpose": "Read and analyse packet captures",
+      "install": "apt:wireshark-common",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "optional_install",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "yara",
+      "name": "YARA",
+      "category": "malware_triage",
+      "purpose": "Pattern-based file classification and triage",
+      "install": "apt:yara",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "optional_install",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "clamav",
+      "name": "ClamAV",
+      "category": "malware_triage",
+      "purpose": "Signature-based file scanning",
+      "install": "apt:clamav",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "optional_install",
+      "notes": "Update signatures before scanning; not a guarantee of malware detection.",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "binwalk",
+      "name": "Binwalk",
+      "category": "firmware_analysis",
+      "purpose": "Identify and inspect embedded firmware components",
+      "install": "apt:binwalk",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "optional_install",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "sleuthkit",
+      "name": "The Sleuth Kit",
+      "category": "digital_forensics",
+      "purpose": "Filesystem and forensic image analysis",
+      "install": "apt:sleuthkit",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "optional_install",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "sqlite3",
+      "name": "SQLite",
+      "category": "data_inspection",
+      "purpose": "Inspect SQLite databases and app data exports",
+      "install": "apt:sqlite3",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "optional_install",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "semgrep",
+      "name": "Semgrep",
+      "category": "source_code_security",
+      "purpose": "Static application security testing",
+      "install": "pipx:semgrep",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "optional_install",
+      "notes": "Review rule packs and scan repositories you are permitted to inspect.",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "bandit",
+      "name": "Bandit",
+      "category": "source_code_security",
+      "purpose": "Python source security linting",
+      "install": "pipx:bandit",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "optional_install",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "shellcheck",
+      "name": "ShellCheck",
+      "category": "source_code_quality",
+      "purpose": "Static analysis of shell scripts",
+      "install": "apt:shellcheck",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "optional_install",
+      "pipeline_id": "tool_run",
+      "execution_status": "local_adapter_implemented_runtime_unverified",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "trivy",
+      "name": "Trivy",
+      "category": "dependency_and_container_security",
+      "purpose": "Scan source dependencies and supported artifacts for known vulnerabilities",
+      "install": "official_vendor_package",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "manual_verified_install",
+      "notes": "Use official installation instructions; not bundled by this script.",
+      "pipeline_id": "tool_run",
+      "execution_status": "manual_install_then_runtime_verify",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "testssl",
+      "name": "testssl.sh",
+      "category": "tls_audit",
+      "purpose": "TLS configuration assessment for authorised endpoints",
+      "install": "official_git_release",
+      "platforms": [
+        "ubuntu_proot",
+        "remote_authorised_lab"
+      ],
+      "status": "manual_verified_install",
+      "scope": "Only assess endpoints in the confirmed scope.",
+      "pipeline_id": "tool_run",
+      "execution_status": "manual_install_then_runtime_verify",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "owasp-zap",
+      "name": "OWASP ZAP",
+      "category": "web_application_security",
+      "purpose": "Web application security analysis including passive review and authorised test environments",
+      "install": "official_release_or_container",
+      "platforms": [
+        "remote_authorised_lab",
+        "desktop_linux"
+      ],
+      "status": "manual_verified_install",
+      "notes": "Registered in the pipeline, but this Android build has no remote ZAP endpoint connector. Do not claim local execution.",
+      "pipeline_id": "tool_run",
+      "execution_status": "remote_environment_required",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    },
+    {
+      "id": "kismet",
+      "name": "Kismet",
+      "category": "wireless_diagnostics",
+      "purpose": "Wireless network monitoring in supported environments",
+      "install": "official_package_or_source",
+      "platforms": [
+        "compatible_linux_hardware"
+      ],
+      "status": "hardware_dependent",
+      "notes": "Registered in the pipeline; requires compatible wireless hardware, drivers and privileges. PRoot cannot provide monitor mode.",
+      "pipeline_id": "tool_run",
+      "execution_status": "hardware_dependent_not_local",
+      "install_adapter": "tool_install",
+      "status_adapter": "tool_status"
+    }
+  ]
+}
